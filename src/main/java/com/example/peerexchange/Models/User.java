@@ -1,7 +1,8 @@
 package com.example.peerexchange.Models;
 
-import jakarta.persistence.*;
 
+
+import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
