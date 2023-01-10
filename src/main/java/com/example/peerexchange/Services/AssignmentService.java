@@ -20,7 +20,7 @@ public class AssignmentService {
     // constructor injection BEST PRACTICE!!!!!!
     public AssignmentService(AssignmentRepository repos) {
         this.repos = repos;
-    }
+}
 
 
     // alle opdrachten op hallen
@@ -47,11 +47,9 @@ public class AssignmentService {
         } else {
             throw new RecordNotFoundException("geen opdracht gevonden met dat ID nummer");
         }
-
-
     }
 
-    // een opdracht aanmaken met de inputDto Class
+    // een opdracht aanmaken met de inputDto assignment
     public AssignmentDto addAssignment(AssignmentDtoInput dto){
         Assignment am = transferToAssignment(dto);
         repos.save(am);
