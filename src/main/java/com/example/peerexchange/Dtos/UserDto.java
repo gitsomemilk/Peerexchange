@@ -1,20 +1,19 @@
-package com.example.peerexchange.Models;
+package com.example.peerexchange.Dtos;
 
+import com.example.peerexchange.Models.Role;
 
-
-import javax.persistence.*;
 import java.util.Collection;
 
-@Entity
-@Table(name="users")
-public class User {
-    @Id
+public class UserDto {
+
     private String username;
-
     private String password;
-
-    @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles;
+
+
+
+    // getters and setters
+
 
     public String getUsername() {
         return username;

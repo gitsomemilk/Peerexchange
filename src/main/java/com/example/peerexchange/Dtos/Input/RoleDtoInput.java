@@ -1,22 +1,17 @@
-package com.example.peerexchange.Models;
+package com.example.peerexchange.Dtos.Input;
 
+import com.example.peerexchange.Models.User;
 
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 import java.util.Collection;
 
-@Entity
-@Table(name = "roles")
-public class Role {
-    @Id
-    private String rolename;
+public class RoleDtoInput {
 
-    @ManyToMany( mappedBy = "roles")
+    private String rolename;
     private Collection<User> users;
 
+
+
+    // getters and setters
     public String getRolename() {
         return rolename;
     }

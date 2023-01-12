@@ -1,4 +1,7 @@
 package com.example.peerexchange.Dtos.Input;
+
+import javax.validation.constraints.Size;
+
 // deze klasse wordt gebruikt voor de Post en Put methodes.
 public class TeacherDtoInput {
 
@@ -6,8 +9,11 @@ public class TeacherDtoInput {
     private String firstname;
     private String lastname;
     private String username;
+    @Size( min = 5, max = 20 )
     private String password;
     private Long token;
+
+
 
     // getters and setters
 
