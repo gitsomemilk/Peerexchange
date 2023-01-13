@@ -18,7 +18,7 @@ public class AssignmentController {
     public AssignmentController(AssignmentService assignmentService) { this.assignmentService = assignmentService; }
 
 
-    ///---------------Get Mapping Blok--------------------\\\\\\\
+    ///---------------Mapping Blok--------------------\\\\\\\
 
     // ophalen van alle Assignments
     @GetMapping("/all")
@@ -31,7 +31,7 @@ public class AssignmentController {
 
     // ophalen van een Assignment op basis van id
     @GetMapping("/{id}")
-    public ResponseEntity<AssignmentDto> getAssignment(@PathVariable ("id") Long id) {
+    public ResponseEntity<AssignmentDto> getAssignmentById(@PathVariable ("id") Long id) {
 
         AssignmentDto assignment = assignmentService.getAssignmentById(id);
 
@@ -46,6 +46,14 @@ public class AssignmentController {
 
         return ResponseEntity.created(null).body(dto);
 
+    }
+    // verwijderen van een assignment door middel van id
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteAssignment(@PathVariable Long id) {
+
+        assignmentService.deleteAssignment(id);
+
+        return ResponseEntity.noContent().build();
     }
 
 

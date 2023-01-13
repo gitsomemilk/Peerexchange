@@ -14,6 +14,10 @@ public class Assignment {
     private String description;
     private Long class_id; // foreign key to classes.id
 
+    // deadline maken en instellen
+
+
+
     // getters and setters
 
 
