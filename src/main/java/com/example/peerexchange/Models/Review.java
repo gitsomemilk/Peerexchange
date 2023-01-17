@@ -1,20 +1,26 @@
 package com.example.peerexchange.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 public class Review {
+    // harde waardes
     @Id
     @GeneratedValue
     private Long id;
-    private Long student_id; // foreign key to students.id
-    private Long submission_id; //foreign key to submissions.id
     private Long score;
     private String feedback;
     private Date timestamp;
+
+// connecties tussen de andere entiteiten
+    @ManyToOne
+    @JoinColumn(name = "submission_id")
+    private Submission submission;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 
     // getters and setters
 
@@ -27,21 +33,6 @@ public class Review {
         this.id = id;
     }
 
-    public Long getStudent_id() {
-        return student_id;
-    }
-
-    public void setStudent_id(Long student_id) {
-        this.student_id = student_id;
-    }
-
-    public Long getSubmission_id() {
-        return submission_id;
-    }
-
-    public void setSubmission_id(Long submission_id) {
-        this.submission_id = submission_id;
-    }
 
     public Long getScore() {
         return score;
@@ -65,5 +56,21 @@ public class Review {
 
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public Submission getSubmission() {
+        return submission;
+    }
+
+    public void setSubmission(Submission submission) {
+        this.submission = submission;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }

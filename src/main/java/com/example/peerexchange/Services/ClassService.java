@@ -70,7 +70,11 @@ public class ClassService {
 
         class_.setId(dto.getId());
         class_.setName(dto.getName());
-        class_.setTeacher_id(dto.getTeacher_id());
+        class_.setTeacher(dto.getTeacher());
+        class_.setStudents(dto.getStudents());
+        class_.setAssignments(dto.getAssignments());
+
+
 
         return class_;
 
@@ -83,7 +87,9 @@ public class ClassService {
 
         dto.setId(cl.getId());
         dto.setName(cl.getName());
-        dto.setTeacher_id(cl.getTeacher_id());
+        dto.setTeacher(cl.getTeacher());
+        dto.setStudents(cl.getStudents());
+        dto.setAssignments(cl.getAssignments());
 
         return dto;
     }

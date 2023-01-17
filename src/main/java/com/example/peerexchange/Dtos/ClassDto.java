@@ -1,11 +1,22 @@
 package com.example.peerexchange.Dtos;
+
+import com.example.peerexchange.Models.Assignment;
+import com.example.peerexchange.Models.Student;
+import com.example.peerexchange.Models.Teacher;
+
+import java.util.List;
+
 // deze klasse wordt gebruikt voor de Get methodes.
 public class ClassDto {
 
     private Long id;
     private String name;
-    private Long teacher_id; // foreign key to teacher.id
 
+    private Teacher teacher;
+
+    private List<Student> students;
+
+    private List<Assignment> assignments;
     // getters and setters
 
 
@@ -25,13 +36,30 @@ public class ClassDto {
         this.name = name;
     }
 
-    public Long getTeacher_id() {
-        return teacher_id;
+    public Teacher getTeacher() {
+        return teacher;
     }
 
-    public void setTeacher_id(Long teacher_id) {
-        this.teacher_id = teacher_id;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
+    public List<Assignment> getAssignments() {
+        return assignments;
+    }
+
+    public void setAssignments(List<Assignment> assignments) {
+        this.assignments = assignments;
     }
 }
+
 
 

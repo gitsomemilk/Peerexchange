@@ -3,11 +3,19 @@ package com.example.peerexchange.Dtos;
 
 // deze klasse wordt gebruikt voor de Get methodes.
 
+import com.example.peerexchange.Models.Class;
+import com.example.peerexchange.Models.Submission;
+
+import java.util.Date;
+import java.util.List;
+
 public class AssignmentDto {
     private Long id;
     private String title;
     private String description;
-    private Long class_id; // foreign key to classes.id
+    private Date deadline;
+    private List<Submission> submissions;
+    private List<Class> classes;
 
 
 
@@ -24,7 +32,27 @@ public class AssignmentDto {
 
     public void setDescription(String description) {this.description = description;}
 
-    public Long getClass_id() {return class_id;}
+    public Date getDeadline() {
+        return deadline;
+    }
 
-    public void setClass_id(Long class_id) {this.class_id = class_id;}
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
+    }
+
+    public List<Submission> getSubmissions() {
+        return submissions;
+    }
+
+    public void setSubmissions(List<Submission> submissions) {
+        this.submissions = submissions;
+    }
+
+    public List<Class> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(List<Class> classes) {
+        this.classes = classes;
+    }
 }

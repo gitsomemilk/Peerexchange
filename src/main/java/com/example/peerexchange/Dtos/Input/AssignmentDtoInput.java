@@ -1,7 +1,12 @@
 package com.example.peerexchange.Dtos.Input;
 
+import com.example.peerexchange.Models.Class;
+import com.example.peerexchange.Models.Submission;
 import com.sun.istack.NotNull;
-import org.hibernate.annotations.BatchSize;
+
+
+import java.util.Date;
+import java.util.List;
 
 // deze klasse wordt gebruikt voor de Post en Put methodes.
 public class AssignmentDtoInput {
@@ -12,7 +17,11 @@ public class AssignmentDtoInput {
     private String title;
     @NotNull
     private String description;
-    private Long class_id; // foreign key to classes.id
+    private Date deadline;
+
+    private List<Class> classes;
+
+
 
 
 
@@ -42,11 +51,19 @@ public class AssignmentDtoInput {
         this.description = description;
     }
 
-    public Long getClass_id() {
-        return class_id;
+    public Date getDeadline() {
+        return deadline;
     }
 
-    public void setClass_id(Long class_id) {
-        this.class_id = class_id;
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
+    }
+
+    public List<Class> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(List<Class> classes) {
+        this.classes = classes;
     }
 }

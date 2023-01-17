@@ -1,4 +1,9 @@
 package com.example.peerexchange.Dtos;
+
+import com.example.peerexchange.Models.Class;
+
+import java.util.List;
+
 // deze klasse wordt gebruikt voor de Get methodes.
 public class TeacherDto {
 
@@ -7,7 +12,9 @@ public class TeacherDto {
     private String lastname;
     private String username;
     private String password;
-    private Long token;
+
+    private List<Class> class_id;
+
 
 
 
@@ -52,11 +59,12 @@ public class TeacherDto {
         this.password = password;
     }
 
-    public Long getToken() {
-        return token;
+    public List<Class> getClass_id() {
+        return class_id;
     }
 
-    public void setToken(Long token) {
-        this.token = token;
+    public void setClass_id(List<Class> class_id) {
+        this.class_id = class_id;
     }
 }
+

@@ -1,9 +1,8 @@
 package com.example.peerexchange.Models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Teacher {
@@ -15,13 +14,11 @@ public class Teacher {
     private String lastname;
     private String username;
     private String password;
-    private Long token;
+    @OneToMany (mappedBy = "teacher")
+    private List<Class> class_id;
 
 
-
-
-
-   // getters and setters for variables
+    // getters and setters for variables
     public Long getId() {
         return id;
     }
@@ -62,11 +59,13 @@ public class Teacher {
         this.password = password;
     }
 
-    public Long getToken() {
-        return token;
+    public List<Class> getClass_id() {
+        return class_id;
     }
 
-    public void setToken(Long token) {
-        this.token = token;
+    public void setClass_id(List<Class> class_id) {
+        this.class_id = class_id;
     }
 }
+
+

@@ -68,10 +68,11 @@ private final SubmissionRepository repos;
         var submission = new Submission();
 
         submission.setId(dto.getId());
-        submission.setStudent_id(dto.getStudent_id());
-        submission.setAssignment_id(dto.getAssignment_id());
         submission.setFile(dto.getFile());
         submission.setTimestamp(dto.getTimestamp());
+        submission.setAssignment(dto.getAssignment());
+        submission.setStudent(dto.getStudent());
+        submission.setReviews(dto.getReviews());
 
         return submission;
     }
@@ -81,10 +82,11 @@ private final SubmissionRepository repos;
         SubmissionDto dto = new SubmissionDto();
 
         dto.setId(sm.getId());
-        dto.setStudent_id(sm.getStudent_id());
-        dto.setAssignment_id(sm.getAssignment_id());
         dto.setFile(sm.getFile());
         dto.setTimestamp(sm.getTimestamp());
+        dto.setAssignment(sm.getAssignment());
+        dto.setStudent(sm.getStudent());
+        dto.setReviews(sm.getReviews());
 
         return dto;
     }

@@ -2,20 +2,31 @@ package com.example.peerexchange.Models;
 
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Submission {
+    // Harde Waardes
     @Id
     @GeneratedValue
     private Long id;
-    private Long student_id; // foreign key to students.id
-    private Long assignment_id; // foreign key to assignments.id
-    private String file; // pull request of te student
+    private String file; // pull request van de student
     private Date timestamp;
+
+
+    // connecties tussen de entiteiten
+    @ManyToOne
+    @JoinColumn(name = "assignment_id")
+    private Assignment assignment;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
+
+    @OneToMany(mappedBy = "submission", cascade = CascadeType.ALL)
+    private List<Review> reviews;
 
 
     // getters and setters
@@ -29,20 +40,20 @@ public class Submission {
         this.id = id;
     }
 
-    public Long getStudent_id() {
-        return student_id;
+    public Assignment getAssignment() {
+        return assignment;
     }
 
-    public void setStudent_id(Long student_id) {
-        this.student_id = student_id;
+    public void setAssignment(Assignment assignment) {
+        this.assignment = assignment;
     }
 
-    public Long getAssignment_id() {
-        return assignment_id;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setAssignment_id(Long assignment_id) {
-        this.assignment_id = assignment_id;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public String getFile() {
@@ -59,5 +70,13 @@ public class Submission {
 
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }

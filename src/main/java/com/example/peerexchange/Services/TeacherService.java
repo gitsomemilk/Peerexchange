@@ -70,7 +70,8 @@ public class TeacherService {
         teacher.setLastname(dto.getLastname());
         teacher.setUsername(dto.getUsername());
         teacher.setPassword(dto.getPassword());
-        teacher.setToken(dto.getToken());
+        teacher.setClass_id(dto.getClass_id());
+
 
         return  teacher;
     }
@@ -85,7 +86,8 @@ public class TeacherService {
         dto.setLastname(t.getLastname());
         dto.setUsername(t.getUsername());
         dto.setPassword(t.getPassword());
-        dto.setToken(t.getToken());
+        dto.setClass_id(t.getClass_id());
+
 
         return dto;
     }

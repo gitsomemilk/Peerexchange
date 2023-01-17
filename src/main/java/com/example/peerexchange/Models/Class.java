@@ -1,46 +1,70 @@
 package com.example.peerexchange.Models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class Class {
- @Id
- @GeneratedValue
- private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
- private String name;
- private Long teacher_id; // foreign key to teacher.id
+    private String name;
+    @ManyToOne
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
+
+    @OneToMany(mappedBy = "myClass")
+    private List<Student> students;
+
+    @ManyToMany(mappedBy = "classes")
+    private List<Assignment> assignments;
 
 
+    // getters and setters
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
- // getters and setters
+    public String getName() {
+        return name;
+    }
 
- public Long getId() {
-  return id;
- }
+    public void setName(String name) {
+        this.name = name;
+    }
 
- public void setId(Long id) {
-  this.id = id;
- }
+    public Teacher getTeacher() {
+        return teacher;
+    }
 
- public String getName() {
-  return name;
- }
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
 
- public void setName(String name) {
-  this.name = name;
- }
+    public List<Student> getStudents() {
+        return students;
+    }
 
- public Long getTeacher_id() {
-  return teacher_id;
- }
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
 
- public void setTeacher_id(Long teacher_id) {
-  this.teacher_id = teacher_id;
- }
+    public List<Assignment> getAssignments() {
+        return assignments;
+    }
+
+    public void setAssignments(List<Assignment> assignments) {
+        this.assignments = assignments;
+    }
 }

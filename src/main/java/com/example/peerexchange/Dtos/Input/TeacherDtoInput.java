@@ -1,6 +1,9 @@
 package com.example.peerexchange.Dtos.Input;
 
+import com.example.peerexchange.Models.Class;
+
 import javax.validation.constraints.Size;
+import java.util.List;
 
 // deze klasse wordt gebruikt voor de Post en Put methodes.
 public class TeacherDtoInput {
@@ -11,7 +14,9 @@ public class TeacherDtoInput {
     private String username;
     @Size( min = 5, max = 20 )
     private String password;
-    private Long token;
+
+    private List<Class> class_id;
+
 
 
 
@@ -58,11 +63,11 @@ public class TeacherDtoInput {
         this.password = password;
     }
 
-    public Long getToken() {
-        return token;
+    public List<Class> getClass_id() {
+        return class_id;
     }
 
-    public void setToken(Long token) {
-        this.token = token;
+    public void setClass_id(List<Class> class_id) {
+        this.class_id = class_id;
     }
 }

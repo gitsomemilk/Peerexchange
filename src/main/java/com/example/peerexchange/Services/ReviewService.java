@@ -65,11 +65,11 @@ public class ReviewService {
         var review = new Review();
 
         review.setId(dto.getId());
-        review.setStudent_id(dto.getStudent_id());
-        review.setSubmission_id(dto.getSubmission_id());
         review.setScore(dto.getScore());
         review.setFeedback(dto.getFeedback());
         review.setTimestamp(dto.getTimestamp());
+        review.setSubmission(dto.getSubmission());
+        review.setStudent(dto.getStudent());
 
         return review;
     }
@@ -79,11 +79,11 @@ public class ReviewService {
         ReviewDto dto = new ReviewDto();
 
         dto.setId(rv.getId());
-        dto.setStudent_id(rv.getStudent_id());
-        dto.setSubmission_id(rv.getSubmission_id());
         dto.setScore(rv.getScore());
         dto.setFeedback(rv.getFeedback());
         dto.setTimestamp(rv.getTimestamp());
+        dto.setSubmission(rv.getSubmission());
+        dto.setStudent(rv.getStudent());
 
         return dto;
     }

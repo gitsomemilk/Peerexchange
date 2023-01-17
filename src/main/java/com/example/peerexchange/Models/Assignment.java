@@ -1,9 +1,9 @@
 package com.example.peerexchange.Models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Assignment {
@@ -12,10 +12,19 @@ public class Assignment {
     private Long id;
     private String title;
     private String description;
-    private Long class_id; // foreign key to classes.id
 
-    // deadline maken en instellen
+    private Date deadline;
 
+
+    // connections tussen verschillende entiteiten
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "class_assignment",
+            joinColumns = @JoinColumn(name = "assignment_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "class_id" , referencedColumnName = "id"))
+    private List<Class> classes;
+
+    @OneToMany(mappedBy = "assignment", cascade = CascadeType.ALL)
+    private List<Submission> submissions;
 
 
     // getters and setters
@@ -45,11 +54,27 @@ public class Assignment {
         this.description = description;
     }
 
-    public Long getClass_id() {
-        return class_id;
+    public Date getDeadline() {
+        return deadline;
     }
 
-    public void setClass_id(Long class_id) {
-        this.class_id = class_id;
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
+    }
+
+    public List<Class> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(List<Class> classes) {
+        this.classes = classes;
+    }
+
+    public List<Submission> getSubmissions() {
+        return submissions;
+    }
+
+    public void setSubmissions(List<Submission> submissions) {
+        this.submissions = submissions;
     }
 }

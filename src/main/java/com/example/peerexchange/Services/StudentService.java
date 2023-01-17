@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class StudentService {
@@ -58,6 +59,7 @@ public class StudentService {
         repos.deleteById(id);
     }
 
+
     // vertaal methode van studentDto naar student
     public Student transferToStudent(StudentDtoInput dto){
 
@@ -68,7 +70,7 @@ public class StudentService {
         student.setLastname(dto.getLastname());
         student.setUsername(dto.getUsername());
         student.setPassword(dto.getPassword());
-        student.setClass_id(dto.getClass_id());
+        student.setMyClass(dto.getMyClass());
 
         return student;
     }
@@ -82,7 +84,7 @@ public class StudentService {
         dto.setLastname(st.getLastname());
         dto.setUsername(st.getUsername());
         dto.setPassword(st.getPassword());
-        dto.setClass_id(st.getClass_id());
+        dto.setMyClass(st.getMyClass());
 
         return dto;
     }

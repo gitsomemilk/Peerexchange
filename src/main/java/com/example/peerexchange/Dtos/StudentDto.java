@@ -1,4 +1,7 @@
 package com.example.peerexchange.Dtos;
+
+import com.example.peerexchange.Models.Class;
+
 // deze klasse wordt gebruikt voor de Get methodes.
 public class StudentDto {
 
@@ -7,7 +10,8 @@ public class StudentDto {
     private String lastname;
     private String username;
     private String password;
-    private Long class_id; // foreign key to classes.id
+
+    private Class myClass;
 
     // getters and setters
 
@@ -52,11 +56,11 @@ public class StudentDto {
         this.password = password;
     }
 
-    public Long getClass_id() {
-        return class_id;
+    public Class getMyClass() {
+        return myClass;
     }
 
-    public void setClass_id(Long class_id) {
-        this.class_id = class_id;
+    public void setMyClass(Class myClass) {
+        this.myClass = myClass;
     }
 }

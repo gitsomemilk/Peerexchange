@@ -1,15 +1,18 @@
 package com.example.peerexchange.Dtos;
 
+import com.example.peerexchange.Models.Student;
+import com.example.peerexchange.Models.Submission;
+
 import java.util.Date;
 
 // deze klasse wordt gebruikt voor de Get methodes.
 public class ReviewDto {
     private Long id;
-    private Long student_id; // foreign key to students.id
-    private Long submission_id; //foreign key to submissions.id
     private Long score;
     private String feedback;
     private Date timestamp;
+    private Submission submission;
+    private Student student;
 
     // getters and settters
 
@@ -22,20 +25,20 @@ public class ReviewDto {
         this.id = id;
     }
 
-    public Long getStudent_id() {
-        return student_id;
+    public Submission getSubmission() {
+        return submission;
     }
 
-    public void setStudent_id(Long student_id) {
-        this.student_id = student_id;
+    public void setSubmission(Submission submission) {
+        this.submission = submission;
     }
 
-    public Long getSubmission_id() {
-        return submission_id;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setSubmission_id(Long submission_id) {
-        this.submission_id = submission_id;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public Long getScore() {

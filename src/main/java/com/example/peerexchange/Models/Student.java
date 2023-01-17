@@ -1,12 +1,12 @@
 package com.example.peerexchange.Models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Student {
+    // harde waardes
     @Id
     @GeneratedValue
     private Long id;
@@ -15,9 +15,17 @@ public class Student {
     private String lastname;
     private String username;
     private String password;
-    private Long class_id; // foreign key to classes.id
 
+    // connecties tussen verschillende entiteiten
+    @ManyToOne
+    @JoinColumn(name = "class_id")
+    private Class myClass;
 
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<Submission> submissions;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<Review> reviews;
 
 
 
@@ -63,11 +71,27 @@ public class Student {
         this.password = password;
     }
 
-    public Long getClass_id() {
-        return class_id;
+    public Class getMyClass() {
+        return myClass;
     }
 
-    public void setClass_id(Long class_id) {
-        this.class_id = class_id;
+    public void setMyClass(Class myClass) {
+        this.myClass = myClass;
+    }
+
+    public List<Submission> getSubmissions() {
+        return submissions;
+    }
+
+    public void setSubmissions(List<Submission> submissions) {
+        this.submissions = submissions;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }

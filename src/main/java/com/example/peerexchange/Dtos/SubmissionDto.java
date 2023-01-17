@@ -1,16 +1,23 @@
 package com.example.peerexchange.Dtos;
 
+import com.example.peerexchange.Models.Assignment;
+import com.example.peerexchange.Models.Review;
+import com.example.peerexchange.Models.Student;
+
 import java.util.Date;
+import java.util.List;
 
 // deze klasse wordt gebruikt voor de Get methodes.
 public class SubmissionDto {
     private Long id;
-    private Long student_id; // foreign key to students.id
-    private Long assignment_id; // foreign key to assignments.id
-    private String file; // pull request of te student
+    private String file;
     private Date timestamp;
+    private Assignment assignment;
+    private Student student;
+    private List<Review> reviews;
 
     // getters and setters
+
 
     public Long getId() {
         return id;
@@ -20,20 +27,20 @@ public class SubmissionDto {
         this.id = id;
     }
 
-    public Long getStudent_id() {
-        return student_id;
+    public Assignment getAssignment() {
+        return assignment;
     }
 
-    public void setStudent_id(Long student_id) {
-        this.student_id = student_id;
+    public void setAssignment(Assignment assignment) {
+        this.assignment = assignment;
     }
 
-    public Long getAssignment_id() {
-        return assignment_id;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setAssignment_id(Long assignment_id) {
-        this.assignment_id = assignment_id;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public String getFile() {
@@ -50,5 +57,13 @@ public class SubmissionDto {
 
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }

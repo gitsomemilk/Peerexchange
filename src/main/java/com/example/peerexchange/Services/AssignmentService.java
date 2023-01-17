@@ -73,7 +73,9 @@ public class AssignmentService {
         assignment.setId(dto.getId());
         assignment.setTitle(dto.getTitle());
         assignment.setDescription(dto.getDescription());
-        assignment.setClass_id(dto.getClass_id());
+        assignment.setDeadline(dto.getDeadline());
+        assignment.setClasses(dto.getClasses());
+
 
         return assignment;
 
@@ -86,7 +88,9 @@ public class AssignmentService {
         dto.setId(am.getId());
         dto.setTitle(am.getTitle());
         dto.setDescription(am.getDescription());
-        dto.setClass_id(am.getClass_id());
+        dto.setDeadline(am.getDeadline());
+        dto.setSubmissions(am.getSubmissions());
+        dto.setClasses(am.getClasses());
 
         return dto;
     }
