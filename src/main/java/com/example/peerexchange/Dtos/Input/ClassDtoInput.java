@@ -1,8 +1,7 @@
 package com.example.peerexchange.Dtos.Input;
 
 import com.example.peerexchange.Models.Assignment;
-import com.example.peerexchange.Models.Student;
-import com.example.peerexchange.Models.Teacher;
+import com.example.peerexchange.Models.User;
 import com.sun.istack.NotNull;
 
 import java.util.List;
@@ -14,9 +13,9 @@ public class ClassDtoInput {
     @NotNull
     private String name;
 
-    private Teacher teacher;
+    private User teacher;
 
-    private List<Student> students;
+    private List<User> students;
 
     private List<Assignment> assignments;
 
@@ -40,19 +39,19 @@ public class ClassDtoInput {
         this.name = name;
     }
 
-    public Teacher getTeacher() {
+    public User getTeacher() {
         return teacher;
     }
 
-    public void setTeacher(Teacher teacher) {
+    public void setTeacher(User teacher) {
         this.teacher = teacher;
     }
 
-    public List<Student> getStudents() {
+    public List<User> getStudents() {
         return students;
     }
 
-    public void setStudents(List<Student> students) {
+    public void setStudents(List<User> students) {
         this.students = students;
     }
 

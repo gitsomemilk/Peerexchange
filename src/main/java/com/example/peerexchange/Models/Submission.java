@@ -22,8 +22,7 @@ public class Submission {
     private Assignment assignment;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
-    private Student student;
+    private User student;
 
     @OneToMany(mappedBy = "submission", cascade = CascadeType.ALL)
     private List<Review> reviews;
@@ -48,11 +47,11 @@ public class Submission {
         this.assignment = assignment;
     }
 
-    public Student getStudent() {
+    public User getStudent() {
         return student;
     }
 
-    public void setStudent(Student student) {
+    public void setStudent(User student) {
         this.student = student;
     }
 

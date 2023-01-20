@@ -1,12 +1,11 @@
 package com.example.peerexchange.Dtos.Input;
 
-import com.example.peerexchange.Models.Student;
 import com.example.peerexchange.Models.Submission;
+import com.example.peerexchange.Models.User;
 import com.sun.istack.NotNull;
 
 
 import javax.validation.constraints.FutureOrPresent;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -19,7 +18,7 @@ public class ReviewDtoInput {
     private String feedback;
     @FutureOrPresent
     private Date timestamp;
-    private Student student;
+    private User student;
     private Submission submission;
 
 
@@ -35,11 +34,11 @@ public class ReviewDtoInput {
         this.id = id;
     }
 
-    public Student getStudent() {
+    public User getStudent() {
         return student;
     }
 
-    public void setStudent(Student student) {
+    public void setStudent(User student) {
         this.student = student;
     }
 

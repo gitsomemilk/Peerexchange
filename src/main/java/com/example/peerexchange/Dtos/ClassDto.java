@@ -1,8 +1,7 @@
 package com.example.peerexchange.Dtos;
 
 import com.example.peerexchange.Models.Assignment;
-import com.example.peerexchange.Models.Student;
-import com.example.peerexchange.Models.Teacher;
+import com.example.peerexchange.Models.User;
 
 import java.util.List;
 
@@ -12,9 +11,9 @@ public class ClassDto {
     private Long id;
     private String name;
 
-    private Teacher teacher;
+    private User teacher;
 
-    private List<Student> students;
+    private List<User> students;
 
     private List<Assignment> assignments;
     // getters and setters
@@ -36,19 +35,19 @@ public class ClassDto {
         this.name = name;
     }
 
-    public Teacher getTeacher() {
+    public User getTeacher() {
         return teacher;
     }
 
-    public void setTeacher(Teacher teacher) {
+    public void setTeacher(User teacher) {
         this.teacher = teacher;
     }
 
-    public List<Student> getStudents() {
+    public List<User> getStudents() {
         return students;
     }
 
-    public void setStudents(List<Student> students) {
+    public void setStudents(List<User> students) {
         this.students = students;
     }
 
@@ -60,6 +59,4 @@ public class ClassDto {
         this.assignments = assignments;
     }
 }
-
-
 

@@ -2,7 +2,7 @@ package com.example.peerexchange.Dtos;
 
 import com.example.peerexchange.Models.Assignment;
 import com.example.peerexchange.Models.Review;
-import com.example.peerexchange.Models.Student;
+import com.example.peerexchange.Models.User;
 
 import java.util.Date;
 import java.util.List;
@@ -13,7 +13,7 @@ public class SubmissionDto {
     private String file;
     private Date timestamp;
     private Assignment assignment;
-    private Student student;
+    private User student;
     private List<Review> reviews;
 
     // getters and setters
@@ -35,11 +35,11 @@ public class SubmissionDto {
         this.assignment = assignment;
     }
 
-    public Student getStudent() {
+    public User getStudent() {
         return student;
     }
 
-    public void setStudent(Student student) {
+    public void setStudent(User student) {
         this.student = student;
     }
 

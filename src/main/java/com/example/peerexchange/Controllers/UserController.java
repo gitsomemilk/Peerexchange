@@ -40,9 +40,9 @@ public class UserController {
         return ResponseEntity.ok().body(optionalUser);
 
     }
-
+        // het aanmaken van een student
     @PostMapping(value = "")
-    public ResponseEntity<UserDto> createKlant(@RequestBody UserDto dto) {;
+    public ResponseEntity<UserDto> createStudent(@RequestBody UserDto dto) {;
 
         String newUsername = userService.createUser(dto);
         userService.addAuthority(newUsername, "ROLE_USER");
@@ -52,6 +52,7 @@ public class UserController {
 
         return ResponseEntity.created(location).build();
     }
+
 
     @PutMapping(value = "/{username}")
     public ResponseEntity<UserDto> updateKlant(@PathVariable("username") String username, @RequestBody UserDto dto) {

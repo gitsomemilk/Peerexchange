@@ -71,8 +71,8 @@ private final SubmissionRepository repos;
         submission.setFile(dto.getFile());
         submission.setTimestamp(dto.getTimestamp());
         submission.setAssignment(dto.getAssignment());
-        submission.setStudent(dto.getStudent());
         submission.setReviews(dto.getReviews());
+
 
         return submission;
     }
@@ -85,8 +85,8 @@ private final SubmissionRepository repos;
         dto.setFile(sm.getFile());
         dto.setTimestamp(sm.getTimestamp());
         dto.setAssignment(sm.getAssignment());
-        dto.setStudent(sm.getStudent());
         dto.setReviews(sm.getReviews());
+
 
         return dto;
     }

@@ -2,6 +2,7 @@ package com.example.peerexchange.Models;
 
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,6 +26,7 @@ public class User {
     @Column
     private String email;
 
+
     @OneToMany(
             targetEntity = Authority.class,
             mappedBy = "username",
@@ -32,6 +34,8 @@ public class User {
             orphanRemoval = true,
             fetch = FetchType.EAGER)
     private Set<Authority> authorities = new HashSet<>();
+
+
 
     public String getUsername() { return username; }
     public void setUsername(String username) {
@@ -57,5 +61,6 @@ public class User {
     public void removeAuthority(Authority authority) {
         this.authorities.remove(authority);
     }
+
 
 }

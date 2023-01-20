@@ -16,11 +16,11 @@ public class Class {
 
     private String name;
     @ManyToOne
-    @JoinColumn(name = "teacher_id")
-    private Teacher teacher;
+    @JoinColumn(name = "teacher")
+    private User teacher;
 
-    @OneToMany(mappedBy = "myClass")
-    private List<Student> students;
+    @OneToMany
+    private List<User> students;
 
     @ManyToMany(mappedBy = "classes")
     private List<Assignment> assignments;
@@ -44,19 +44,19 @@ public class Class {
         this.name = name;
     }
 
-    public Teacher getTeacher() {
+    public User getTeacher() {
         return teacher;
     }
 
-    public void setTeacher(Teacher teacher) {
+    public void setTeacher(User teacher) {
         this.teacher = teacher;
     }
 
-    public List<Student> getStudents() {
+    public List<User> getStudents() {
         return students;
     }
 
-    public void setStudents(List<Student> students) {
+    public void setStudents(List<User> students) {
         this.students = students;
     }
 

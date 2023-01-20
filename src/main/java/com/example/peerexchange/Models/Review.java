@@ -13,14 +13,13 @@ public class Review {
     private String feedback;
     private Date timestamp;
 
-// connecties tussen de andere entiteiten
+    // connecties tussen de andere entiteiten
     @ManyToOne
     @JoinColumn(name = "submission_id")
     private Submission submission;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
-    private Student student;
+    private User student;
 
     // getters and setters
 
@@ -66,11 +65,11 @@ public class Review {
         this.submission = submission;
     }
 
-    public Student getStudent() {
+    public User getStudent() {
         return student;
     }
 
-    public void setStudent(Student student) {
+    public void setStudent(User student) {
         this.student = student;
     }
 }

@@ -53,10 +53,13 @@ public class SpringSecurityConfig {
                 .httpBasic().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
-                .antMatchers(HttpMethod.GET,"/users").hasRole("ADMIN")
-                .antMatchers(HttpMethod.POST,"/users/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/users").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,"/users/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/users/**").hasAuthority("ADMIN")
                 /*voeg de antmatchers toe voor admin(post en delete) en user (overige)*/
+                .antMatchers(HttpMethod.POST,"/assignments").hasAuthority("USER")
+                .antMatchers(HttpMethod.GET,"/assignments").hasAuthority("USER")
+                .antMatchers("/teachers").hasAuthority("ADMIN")
                 .antMatchers("/authenticated").authenticated()
                 .antMatchers("/authenticate").permitAll()/*allen dit punt mag toegankelijk zijn voor niet ingelogde gebruikers*/
                 .anyRequest().permitAll()
