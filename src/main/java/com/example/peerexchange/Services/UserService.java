@@ -1,93 +1,120 @@
 package com.example.peerexchange.Services;
 
-import com.example.peerexchange.Dtos.AssignmentDto;
-import com.example.peerexchange.Dtos.Input.AssignmentDtoInput;
-import com.example.peerexchange.Dtos.Input.UserDtoInput;
+
 import com.example.peerexchange.Dtos.UserDto;
-import com.example.peerexchange.Exeptions.RecordNotFoundException;
-import com.example.peerexchange.Models.Assignment;
+import com.example.peerexchange.Exeptions.UsernameNotFoundException;
+import com.example.peerexchange.Models.Authority;
 import com.example.peerexchange.Models.User;
 import com.example.peerexchange.Repositories.UserRepository;
+import com.example.peerexchange.Utils.RandomStringGenerator;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService {
+    /*inject de UserRepository */
+    private UserRepository userRepository;
 
-    // import van de repository in de service
-    private final UserRepository repos;
-
-    // constructor injection
-    public UserService(UserRepository repos) {
-        this.repos = repos;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    // ophalen van alle users
-    public List<UserDto> getAllUsers(){
 
-        List<User> userList = repos.findAll();
-        List<UserDto> userDtoList = new ArrayList<>();
-
-        for (User u : userList) {
-            UserDto dto = transferToDto(u);
-            userDtoList.add(dto);
+    public List<UserDto> getUsers() {
+        List<UserDto> collection = new ArrayList<>();
+        List<User> list = userRepository.findAll();
+        for (User user : list) {
+            collection.add(fromUser(user));
         }
-        return userDtoList;
-    }
-    // ophalen van een user door middel van id
-    public UserDto getUserById(String id) {
-        Optional<User>userOptional = repos.findById(id);
-
-        if (userOptional.isPresent()){
-            User u = userOptional.get();
-            return transferToDto(u);
-        }else {
-            throw new RecordNotFoundException("geen user gevonden met dat ID nummer");
-        }
+        return collection;
     }
 
-    // user aanmaken door middel van de inputDto user
-    public UserDto addUser(UserDtoInput dto){
-        User u = transferToUser(dto);
-        repos.save(u);
-
-        return transferToDto(u);
-    }
-
-    // deleten van een user
-    public void deleteUser(@RequestBody String id) {
-
-        repos.deleteById(id);
-    }
-    //vertaal methode van UserDto naar User
-    public User transferToUser(UserDtoInput dto){
-
-        var user = new User();
-
-        user.setUsername(dto.getUsername());
-        user.setPassword(dto.getPassword());
-        user.setRoles(dto.getRoles());
-
-
-        return user;
-
-    }
-
-    // de vertaal methode van Assignment naar AssignmentDto
-    public UserDto transferToDto(User u) {
+    public UserDto getUser(String username) {
         UserDto dto = new UserDto();
+        Optional<User> user = userRepository.findById(username);
+        if (user.isPresent()){
+            dto = fromUser(user.get());
+        }else {
+            throw new UsernameNotFoundException(username);
+        }
+        return dto;
+    }
 
-        dto.setUsername(u.getUsername());
-        dto.setPassword(u.getPassword());
-        dto.setRoles(u.getRoles());
+    public boolean userExists(String username) {
+        return userRepository.existsById(username);
+    }
 
+    public String createUser(UserDto userDto) {
+        String randomString = RandomStringGenerator.generateAlphaNumeric(20);
+        userDto.setApikey(randomString);
+        User newUser = userRepository.save(toUser(userDto));
+        return newUser.getUsername();
+    }
+
+    public void deleteUser(String username) {
+        userRepository.deleteById(username);
+    }
+
+    public void updateUser(String username, UserDto newUser) {
+        if (!userRepository.existsById(username)) throw new UsernameNotFoundException(username);
+        User user = userRepository.findById(username).get();
+        user.setPassword(newUser.getPassword());
+        userRepository.save(user);
+    }
+
+    public Set<Authority> getAuthorities(String username) {
+        if (!userRepository.existsById(username)) throw new UsernameNotFoundException(username);
+        User user = userRepository.findById(username).get();
+        UserDto userDto = fromUser(user);
+        return userDto.getAuthorities();
+    }
+
+    public void addAuthority(String username, String authority) {
+
+        if (!userRepository.existsById(username)) throw new UsernameNotFoundException(username);
+        User user = userRepository.findById(username).get();
+        user.addAuthority(new Authority(username, authority));
+        userRepository.save(user);
+    }
+
+    public void removeAuthority(String username, String authority) {
+        if (!userRepository.existsById(username)) throw new UsernameNotFoundException(username);
+        User user = userRepository.findById(username).get();
+        Authority authorityToRemove = user.getAuthorities().stream().filter((a) -> a.getAuthority().equalsIgnoreCase(authority)).findAny().get();
+        user.removeAuthority(authorityToRemove);
+        userRepository.save(user);
+    }
+
+    public static UserDto fromUser(User user){
+
+        var dto = new UserDto();
+
+        dto.username = user.getUsername();
+        dto.password = user.getPassword();
+        dto.enabled = user.isEnabled();
+        dto.apikey = user.getApikey();
+        dto.email = user.getEmail();
+        dto.authorities = user.getAuthorities();
 
         return dto;
     }
 
-}
+    public User toUser(UserDto userDto) {
 
+        var user = new User();
+
+        user.setUsername(userDto.getUsername());
+        user.setPassword(userDto.getPassword());
+        user.setEnabled(userDto.getEnabled());
+        user.setApikey(userDto.getApikey());
+        user.setEmail(userDto.getEmail());
+
+        return user;
+    }
+
+}
