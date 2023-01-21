@@ -57,9 +57,32 @@ public class SpringSecurityConfig {
                 .antMatchers(HttpMethod.POST,"/users/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/users/**").hasAuthority("ADMIN")
                 /*voeg de antmatchers toe voor admin(post en delete) en user (overige)*/
-                .antMatchers(HttpMethod.POST,"/assignments").hasAuthority("USER")
-                .antMatchers(HttpMethod.GET,"/assignments").hasAuthority("USER")
-                .antMatchers("/teachers").hasAuthority("ADMIN")
+
+                .antMatchers(HttpMethod.POST,"/assignments").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,"/class").hasAuthority("TEACHER")
+                .antMatchers(HttpMethod.POST,"/review").hasAuthority("TEACHER")
+                .antMatchers(HttpMethod.POST,"/review").hasAuthority("STUDENT")
+                .antMatchers(HttpMethod.POST,"/submission").hasAuthority("STUDENT")
+                .antMatchers(HttpMethod.POST,"/submission").hasAuthority("TEACHER")
+
+                .antMatchers(HttpMethod.GET,"/assignments/**").hasAuthority("TEACHER")
+                .antMatchers(HttpMethod.GET,"/assignments/{id}").hasAuthority("STUDENT")
+                .antMatchers(HttpMethod.GET,"/review/**").hasAuthority("TEACHER")
+                .antMatchers(HttpMethod.GET,"/review/{id}").hasAuthority("STUDENT")
+                .antMatchers(HttpMethod.GET,"/class/**").hasAuthority("TEACHER")
+                .antMatchers(HttpMethod.GET,"/class/{id}").hasAuthority("STUDENT")
+                .antMatchers(HttpMethod.GET,"/submission/**").hasAuthority("TEACHER")
+                .antMatchers(HttpMethod.GET,"/submission/{id}").hasAuthority("STUDENT")
+
+                .antMatchers(HttpMethod.DELETE,"/assignments/**").hasAuthority("TEACHER")
+                .antMatchers(HttpMethod.DELETE,"/assignments/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/class/**").hasAuthority("TEACHER")
+                .antMatchers(HttpMethod.DELETE,"/class/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/review/**").hasAuthority("TEACHER")
+                .antMatchers(HttpMethod.DELETE,"/review/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/submission/**").hasAuthority("TEACHER")
+                .antMatchers(HttpMethod.DELETE,"/submission/**").hasAuthority("ADMIN")
+
                 .antMatchers("/authenticated").authenticated()
                 .antMatchers("/authenticate").permitAll()/*allen dit punt mag toegankelijk zijn voor niet ingelogde gebruikers*/
                 .anyRequest().permitAll()

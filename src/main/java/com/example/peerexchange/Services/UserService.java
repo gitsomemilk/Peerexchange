@@ -96,7 +96,7 @@ public class UserService {
 
         dto.username = user.getUsername();
         dto.password = user.getPassword();
-        dto.enabled = user.isEnabled();
+        dto.teacher = user.isTeacher();
         dto.apikey = user.getApikey();
         dto.email = user.getEmail();
         dto.authorities = user.getAuthorities();
@@ -110,7 +110,7 @@ public class UserService {
 
         user.setUsername(userDto.getUsername());
         user.setPassword(userDto.getPassword());
-        user.setEnabled(userDto.getEnabled());
+        user.setTeacher(userDto.getTeacher());
         user.setApikey(userDto.getApikey());
         user.setEmail(userDto.getEmail());
 
