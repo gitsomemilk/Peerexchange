@@ -7,6 +7,9 @@ import com.example.peerexchange.Models.Authority;
 import com.example.peerexchange.Models.User;
 import com.example.peerexchange.Repositories.UserRepository;
 import com.example.peerexchange.Utils.RandomStringGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -19,10 +22,14 @@ import java.util.Set;
 public class UserService {
     /*inject de UserRepository */
     private UserRepository userRepository;
+    @Autowired
+    @Lazy
+    private PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
     }
+
 
 
     public List<UserDto> getUsers() {
@@ -52,6 +59,7 @@ public class UserService {
     public String createUser(UserDto userDto) {
         String randomString = RandomStringGenerator.generateAlphaNumeric(20);
         userDto.setApikey(randomString);
+        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
         User newUser = userRepository.save(toUser(userDto));
         return newUser.getUsername();
     }
@@ -100,6 +108,8 @@ public class UserService {
         dto.apikey = user.getApikey();
         dto.email = user.getEmail();
         dto.authorities = user.getAuthorities();
+        dto.setFirstname(user.getFirstname());
+        dto.setLastname(user.getLastname());
 
         return dto;
     }
@@ -113,6 +123,9 @@ public class UserService {
         user.setTeacher(userDto.getTeacher());
         user.setApikey(userDto.getApikey());
         user.setEmail(userDto.getEmail());
+        user.setFirstname(userDto.getFirstname());
+        user.setLastname(userDto.getLastname());
+
 
         return user;
     }

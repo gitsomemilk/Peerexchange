@@ -13,6 +13,11 @@ public class UserDto {
     public Boolean teacher;
     public String apikey;
     public String email;
+
+    private String firstname;
+
+    private String lastname;
+
     @JsonSerialize
     public Set<Authority> authorities;
 
@@ -23,7 +28,6 @@ public class UserDto {
     public String getPassword() {
         return password;
     }
-
 
 
     public String getApikey() {
@@ -48,6 +52,22 @@ public class UserDto {
 
     public Boolean getTeacher() {
         return teacher;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public void setTeacher(Boolean teacher) {
