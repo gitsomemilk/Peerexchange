@@ -58,18 +58,18 @@ public class SpringSecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
                 /*voeg de antmatchers toe voor admin(post en delete) en user (overige)*/
 
-                .antMatchers(HttpMethod.POST,"/assignments").hasRole("STUDENT")
-                .antMatchers(HttpMethod.POST,"/class").hasRole("TEACHER")
+                .antMatchers(HttpMethod.POST,"/assignments").hasRole("TEACHER")
+                .antMatchers(HttpMethod.POST,"/class").hasAnyRole("TEACHER","ADMIN")
                 .antMatchers(HttpMethod.POST,"/review").hasRole("TEACHER")
                 .antMatchers(HttpMethod.POST,"/review").hasRole("STUDENT")
                 .antMatchers(HttpMethod.POST,"/submission").hasRole("STUDENT")
                 .antMatchers(HttpMethod.POST,"/submission").hasRole("TEACHER")
 
-                .antMatchers(HttpMethod.GET,"/assignments/**").hasRole("TEACHER")
+                .antMatchers(HttpMethod.GET,"/assignments/**").hasAnyRole("ADMIN","TEACHER")
                 .antMatchers(HttpMethod.GET,"/assignments/{id}").hasRole("STUDENT")
                 .antMatchers(HttpMethod.GET,"/review/**").hasRole("TEACHER")
                 .antMatchers(HttpMethod.GET,"/review/{id}").hasRole("STUDENT")
-                .antMatchers(HttpMethod.GET,"/class/**").hasRole("TEACHER")
+                .antMatchers(HttpMethod.GET,"/class/**").hasAnyRole("TEACHER","ADMIN")
                 .antMatchers(HttpMethod.GET,"/class/{id}").hasRole("STUDENT")
                 .antMatchers(HttpMethod.GET,"/submission/**").hasRole("TEACHER")
                 .antMatchers(HttpMethod.GET,"/submission/{id}").hasRole("STUDENT")

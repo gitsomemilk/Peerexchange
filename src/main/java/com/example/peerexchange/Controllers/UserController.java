@@ -43,25 +43,18 @@ public class UserController {
         // het aanmaken van een student
     @PostMapping(value = "")
     public ResponseEntity<UserDto> createStudent(@RequestBody UserDto dto) {
-        if (dto.teacher = true) {
-            String newUsername = userService.createUser(dto);
-            userService.addAuthority(newUsername, "ROLE_TEACHER");
 
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}")
-                    .buildAndExpand(newUsername).toUri();
+        String newUsername = userService.createUser(dto);
+        userService.addAuthority(newUsername, dto.teacher ? "ROLE_TEACHER" : "ROLE_STUDENT");
 
-            return ResponseEntity.created(location).build();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}")
+                .buildAndExpand(newUsername).toUri();
 
-        } else {
-            String newUsername = userService.createUser(dto);
-            userService.addAuthority(newUsername, "ROLE_STUDENT");
+        return ResponseEntity.created(location).build();
 
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}")
-                    .buildAndExpand(newUsername).toUri();
 
-            return ResponseEntity.created(location).build();
         }
-    }
+
 
 
     @PutMapping(value = "/{username}")
