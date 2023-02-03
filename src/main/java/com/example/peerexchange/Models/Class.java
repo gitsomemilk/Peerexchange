@@ -22,7 +22,7 @@ public class Class {
     @OneToMany
     private List<User> students;
 
-    @ManyToMany(mappedBy = "classes")
+    @ManyToMany
     private List<Assignment> assignments;
 
 
@@ -67,4 +67,9 @@ public class Class {
     public void setAssignments(List<Assignment> assignments) {
         this.assignments = assignments;
     }
+
+    public void addAssignment(Assignment assignment) { this.assignments.add(assignment);
+    }
+
+
 }

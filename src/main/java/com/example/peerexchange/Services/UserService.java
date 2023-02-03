@@ -20,7 +20,6 @@ import java.util.Set;
 
 @Service
 public class UserService {
-    /*inject de UserRepository */
     private UserRepository userRepository;
     @Autowired
     @Lazy

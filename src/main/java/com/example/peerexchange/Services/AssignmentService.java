@@ -4,7 +4,9 @@ import com.example.peerexchange.Dtos.AssignmentDto;
 import com.example.peerexchange.Dtos.Input.AssignmentDtoInput;
 import com.example.peerexchange.Exeptions.RecordNotFoundException;
 import com.example.peerexchange.Models.Assignment;
+import com.example.peerexchange.Models.Submission;
 import com.example.peerexchange.Repositories.AssignmentRepository;
+import com.example.peerexchange.Repositories.SubmissionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -16,11 +18,13 @@ import java.util.Optional;
 public class AssignmentService {
     // import van de repository in de service in plaats van in de controller
     private final AssignmentRepository repos;
+    private final SubmissionRepository submissionRepos;
 
     // constructor injection BEST PRACTICE!!!!!!
-    public AssignmentService(AssignmentRepository repos) {
+    public AssignmentService(AssignmentRepository repos, SubmissionRepository submissionRepos) {
         this.repos = repos;
-}
+        this.submissionRepos = submissionRepos;
+    }
 
 
     // alle opdrachten op hallen
@@ -64,8 +68,24 @@ public class AssignmentService {
         repos.deleteById(id);
     }
 
+    // toevoegen van een submission aan een Assignment
+    public void addSubmissionToAssignment(Long id, Long submissionId) {
+        Optional<Assignment> assignmentOptional = repos.findById(id);
+        Optional<Submission> submissionOptional = submissionRepos.findById(submissionId);
+        if (assignmentOptional.isPresent() && submissionOptional.isPresent() ) {
+            Assignment assignment = assignmentOptional.get();
+            Submission submission= submissionOptional.get();
+            submission.setAssignment(assignment);
+            submissionRepos.save(submission);
+        }else {
+            throw new RecordNotFoundException();
+        }
 
-// vertaal methode van AssignmentDto naar Assignment
+    }
+
+
+
+    // vertaal methode van AssignmentDto naar Assignment
     public Assignment transferToAssignment(AssignmentDtoInput dto){
 
         var assignment = new Assignment();
@@ -75,6 +95,7 @@ public class AssignmentService {
         assignment.setDescription(dto.getDescription());
         assignment.setDeadline(dto.getDeadline());
         assignment.setClasses(dto.getClasses());
+        assignment.setAddon(dto.getAddon());
 
 
         return assignment;
@@ -91,6 +112,7 @@ public class AssignmentService {
         dto.setDeadline(am.getDeadline());
         dto.setSubmissions(am.getSubmissions());
         dto.setClasses(am.getClasses());
+        dto.setAddon(am.getAddon());
 
         return dto;
     }

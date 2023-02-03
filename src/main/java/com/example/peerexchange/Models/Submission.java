@@ -21,7 +21,7 @@ public class Submission {
     @JoinColumn(name = "assignment_id")
     private Assignment assignment;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private User student;
 
     @OneToMany(mappedBy = "submission", cascade = CascadeType.ALL)
@@ -77,5 +77,14 @@ public class Submission {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public void add(Submission submission) {
+    }
+
+    public void addSubmission() {
+    }
+
+    public void setReview(Review review) {
     }
 }

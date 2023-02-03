@@ -4,22 +4,27 @@ import com.example.peerexchange.Dtos.Input.SubmissionDtoInput;
 import com.example.peerexchange.Dtos.SubmissionDto;
 import com.example.peerexchange.Exeptions.RecordNotFoundException;
 import com.example.peerexchange.Models.Submission;
+import com.example.peerexchange.Models.User;
 import com.example.peerexchange.Repositories.SubmissionRepository;
+import com.example.peerexchange.Repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
 public class SubmissionService {
     // import van de repository in de service in plaats van in de controller
 private final SubmissionRepository repos;
+private final UserRepository userRepository;
 
     // constructor injection BEST PRACTICE!!!!!!
-    public SubmissionService(SubmissionRepository repos) {
+    public SubmissionService(SubmissionRepository repos, UserRepository userRepository) {
         this.repos = repos;
+        this.userRepository = userRepository;
     }
 
     // alle ingeleverde opdrachten ophalen
@@ -62,6 +67,24 @@ private final SubmissionRepository repos;
         repos.deleteById(id);
     }
 
+    // toevoegen van een student user aan een submission
+
+    public void addStudentToSubmission(Long id, String studentId) {
+        Optional<Submission>submissionOptional= repos.findById(id);
+        Optional<User> userOptional = userRepository.findById(studentId);
+        if (submissionOptional.isPresent() && userOptional.isPresent()) {
+            Submission submission = submissionOptional.get();
+            User student = userOptional.get();
+            submission.setStudent(student);
+            repos.save(submission);
+        }else {
+            throw new RecordNotFoundException("Geen student of submission gevonden");
+        }
+    }
+    public Submission getRandomRow(){
+        return repos.getRandomRow();
+    }
+
     // vertaal methode van SubmissionDto naar Submission
     public Submission transferToSubmission(SubmissionDtoInput dto){
 
@@ -72,6 +95,7 @@ private final SubmissionRepository repos;
         submission.setTimestamp(dto.getTimestamp());
         submission.setAssignment(dto.getAssignment());
         submission.setReviews(dto.getReviews());
+        submission.setStudent(dto.getStudent());
 
 
         return submission;
@@ -86,6 +110,7 @@ private final SubmissionRepository repos;
         dto.setTimestamp(sm.getTimestamp());
         dto.setAssignment(sm.getAssignment());
         dto.setReviews(sm.getReviews());
+        dto.setStudent(sm.getStudent());
 
 
         return dto;

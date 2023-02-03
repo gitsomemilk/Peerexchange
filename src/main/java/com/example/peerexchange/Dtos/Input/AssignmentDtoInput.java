@@ -5,6 +5,7 @@ import com.example.peerexchange.Models.Submission;
 import com.sun.istack.NotNull;
 
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class AssignmentDtoInput {
     @NotNull
     private String description;
     private Date deadline;
+    private File addon;
 
     private List<Class> classes;
 
@@ -26,6 +28,14 @@ public class AssignmentDtoInput {
 
 
     // getters and setters
+
+    public File getAddon() {
+        return addon;
+    }
+
+    public void setAddon(File addon) {
+        this.addon = addon;
+    }
 
     public Long getId() {
         return id;

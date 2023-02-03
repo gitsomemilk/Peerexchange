@@ -16,7 +16,7 @@ public class SubmissionDtoInput {
     private User student;
     private List<Review> reviews;
 
-    // getters and setters
+    // getters and setter
 
 
     public Long getId() {

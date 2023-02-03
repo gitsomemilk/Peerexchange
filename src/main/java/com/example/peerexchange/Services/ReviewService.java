@@ -4,7 +4,11 @@ import com.example.peerexchange.Dtos.Input.ReviewDtoInput;
 import com.example.peerexchange.Dtos.ReviewDto;
 import com.example.peerexchange.Exeptions.RecordNotFoundException;
 import com.example.peerexchange.Models.Review;
+import com.example.peerexchange.Models.Submission;
+import com.example.peerexchange.Models.User;
 import com.example.peerexchange.Repositories.ReviewRepository;
+import com.example.peerexchange.Repositories.SubmissionRepository;
+import com.example.peerexchange.Repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -16,9 +20,16 @@ import java.util.Optional;
 public class ReviewService {
     // import van de repository in de service in plaats van in de controller
     private final ReviewRepository repos;
+    private final SubmissionRepository submissionRepos;
+    private final UserRepository userRepository;
 
     // constructor injection BEST PRACTICE!!!!!!
-    public ReviewService(ReviewRepository repos) {this.repos = repos;}
+    public ReviewService(ReviewRepository repos, SubmissionRepository submissionRepos,
+                         UserRepository userRepository) {
+        this.repos = repos;
+        this.submissionRepos = submissionRepos;
+        this.userRepository = userRepository;
+    }
 
 
     // alle reviews ophalen
@@ -59,6 +70,42 @@ public class ReviewService {
 
         repos.deleteById(id);
     }
+
+    // een review toevoegen aan een Submission
+    public void addReviewToSubmission(Long reviewId , Long submissionId) {
+        Optional<Review> optionalReview = repos.findById(reviewId);
+        Optional<Submission> optionalSubmission = submissionRepos.findById(submissionId);
+
+        if (optionalReview.isPresent() && optionalSubmission.isPresent()){
+            Review review = optionalReview.get();
+            Submission submission = optionalSubmission.get();
+
+            review.setSubmission(submission);
+            repos.save(review);
+
+        } else {
+            throw new RecordNotFoundException("Review or Submission not found");
+        }
+    }
+
+    // een student User toevoegen aan een review
+    public void addStudentToReview(Long reviewId , String studentId){
+        Optional<Review> optionalReview = repos.findById(reviewId);
+        Optional<User> optionalUser = userRepository.findById(studentId);
+
+        if (optionalReview.isPresent() && optionalUser.isPresent()) {
+            Review review = optionalReview.get();
+            User student = optionalUser.get();
+
+            review.setStudent(student);
+            repos.save(review);
+        }else {
+            throw new RecordNotFoundException("Review of student not found");
+        }
+    }
+
+
+
 
     // vertaal methode van ReviewDto naar Review
     public Review transferToReview(ReviewDtoInput dto){

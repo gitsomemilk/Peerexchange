@@ -2,8 +2,12 @@ package com.example.peerexchange.Services;
 
 import com.example.peerexchange.Dtos.ClassDto;
 import com.example.peerexchange.Dtos.Input.ClassDtoInput;
+import com.example.peerexchange.Models.Assignment;
+import com.example.peerexchange.Models.User;
+import com.example.peerexchange.Repositories.AssignmentRepository;
 import com.example.peerexchange.Repositories.ClassRepository;
 import com.example.peerexchange.Exeptions.RecordNotFoundException;
+import com.example.peerexchange.Repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.example.peerexchange.Models.Class;
@@ -16,10 +20,15 @@ import java.util.Optional;
 public class ClassService {
     // import van de repository in de service in plaats van in de controller
     private final ClassRepository repos;
+    private final AssignmentRepository assignmentRepository;
+    private final UserRepository userRepository;
+
 
     // constructor injection BEST PRACTICE!!!!!!
-    public ClassService(ClassRepository repos) {
+    public ClassService(ClassRepository repos, AssignmentRepository assignmentRepository, UserRepository userRepository) {
         this.repos = repos;
+        this.assignmentRepository = assignmentRepository;
+        this.userRepository = userRepository;
     }
 
     // alle classen ophalen
@@ -62,6 +71,53 @@ public class ClassService {
     public void deleteClass(@RequestBody Long id){
 
         repos.deleteById(id);
+    }
+
+    // een Assignment toevoegen aan een Class class
+    public Class addAssignmentToClass(Long id, Assignment assignmentId){
+       Optional<Class> optionalClass = repos.findById(id);
+       if (optionalClass.isPresent()) {
+           Class class_ = optionalClass.get();
+           List<Assignment> assignments = class_.getAssignments();
+           assignments.add(assignmentId);
+           class_.setAssignments(assignments);
+           assignmentId.setClass(class_);
+           assignmentRepository.save(assignmentId);
+           repos.save(class_);
+
+           return repos.save(class_);
+       } else {
+           throw new RecordNotFoundException();
+       }
+    }
+
+    // een Student User toevoegen aan een Class
+    public Class addStudentToClass(Long id, User student){
+        Optional<Class> optionalClass = repos.findById(id);
+        if (optionalClass.isPresent()){
+            Class class_ = optionalClass.get();
+            student.setClass(class_);
+            userRepository.save(student);
+            class_.getStudents().add(student);
+            return repos.save(class_);
+
+        } else {
+            throw new RecordNotFoundException();
+        }
+    }
+
+    // een Teacher User toevoegen aan een klass
+    public void addTeacherToClass(Long classId, String teacherId) {
+        Optional<Class> classOptional = repos.findById(classId);
+        Optional<User> userOptional = userRepository.findById(teacherId);
+
+        if (classOptional.isPresent() && userOptional.isPresent()){
+            Class class_ = classOptional.get();
+            User teacher = userOptional.get();
+
+            class_.setTeacher(teacher);
+            repos.save(class_);
+        }
     }
 
     // vertaal methode van ClassDto naar Class

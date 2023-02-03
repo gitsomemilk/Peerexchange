@@ -2,6 +2,7 @@ package com.example.peerexchange.Models;
 
 
 import javax.persistence.*;
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,8 @@ public class Assignment {
     private String description;
 
     private Date deadline;
+
+    private File addon;
 
 
     // connections tussen verschillende entiteiten
@@ -29,6 +32,14 @@ public class Assignment {
 
     // getters and setters
 
+
+    public File getAddon() {
+        return addon;
+    }
+
+    public void setAddon(File addon) {
+        this.addon = addon;
+    }
 
     public Long getId() {
         return id;
@@ -76,5 +87,13 @@ public class Assignment {
 
     public void setSubmissions(List<Submission> submissions) {
         this.submissions = submissions;
+    }
+
+    public void addSubmissions(Submission submission) { this.submissions.add(submission);}
+
+    public void addAssignment(Assignment assignment) {
+    }
+
+    public void setClass(Class class_) {
     }
 }

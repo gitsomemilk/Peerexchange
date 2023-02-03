@@ -1,10 +1,10 @@
 package com.example.peerexchange.Controllers;
 
-import com.example.peerexchange.Dtos.Input.ReviewDtoInput;
 import com.example.peerexchange.Dtos.Input.SubmissionDtoInput;
-import com.example.peerexchange.Dtos.ReviewDto;
 import com.example.peerexchange.Dtos.SubmissionDto;
+import com.example.peerexchange.Models.Submission;
 import com.example.peerexchange.Services.SubmissionService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +40,11 @@ public class SubmissionController {
 
         return ResponseEntity.ok().body(submission);
     }
+    // ophalen van een random opdracht uit de data base
+    @GetMapping("/random")
+    public Submission getRandomRow(){
+        return submissionService.getRandomRow();
+    }
 
     // het plaatsen van een submission door middel van de inputDto submission
     @PostMapping("")
@@ -49,6 +54,16 @@ public class SubmissionController {
 
         return ResponseEntity.created(null).body(dto);
     }
+
+    // het toevoegen van eens student user aan een submission
+    @PostMapping("/{id}/{username}")
+    public ResponseEntity<String> addStudentToSubmission(@PathVariable Long id, @PathVariable String username){
+        submissionService.addStudentToSubmission(id, username);
+        return new ResponseEntity<>("Student toegevoegd aan een submission", HttpStatus.OK);
+    }
+
+
+
     // verwijderen van een submission door middel van id
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteSubmission(@PathVariable Long id) {

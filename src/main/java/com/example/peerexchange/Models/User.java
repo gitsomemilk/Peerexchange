@@ -2,7 +2,6 @@ package com.example.peerexchange.Models;
 
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -40,6 +39,14 @@ public class User {
             orphanRemoval = true,
             fetch = FetchType.EAGER)
     private Set<Authority> authorities = new HashSet<>();
+
+    @OneToMany(
+            mappedBy = "student",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER
+    )
+    private Set<Submission> submissions = new HashSet<>();
 
 
     public String getUsername() {
@@ -111,4 +118,9 @@ public class User {
     }
 
 
+    public void setClass(Class class_) {
+    }
+
+    public void add(User teacher) {
+    }
 }

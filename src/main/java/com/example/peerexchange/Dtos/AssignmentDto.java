@@ -5,7 +5,9 @@ package com.example.peerexchange.Dtos;
 
 import com.example.peerexchange.Models.Class;
 import com.example.peerexchange.Models.Submission;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -13,12 +15,20 @@ public class AssignmentDto {
     private Long id;
     private String title;
     private String description;
+    @JsonFormat(pattern="dd-MM-yyyy")
     private Date deadline;
+    private File addon;
     private List<Submission> submissions;
     private List<Class> classes;
 
 
+    public File getAddon() {
+        return addon;
+    }
 
+    public void setAddon(File addon) {
+        this.addon = addon;
+    }
 
     public Long getId() {return id;}
 

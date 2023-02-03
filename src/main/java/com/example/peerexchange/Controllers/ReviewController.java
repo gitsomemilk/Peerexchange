@@ -2,7 +2,10 @@ package com.example.peerexchange.Controllers;
 
 import com.example.peerexchange.Dtos.Input.ReviewDtoInput;
 import com.example.peerexchange.Dtos.ReviewDto;
+import com.example.peerexchange.Models.Review;
+import com.example.peerexchange.Models.Submission;
 import com.example.peerexchange.Services.ReviewService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,6 +50,21 @@ public class ReviewController {
 
         return ResponseEntity.created(null).body(dto);
     }
+
+    // het plaatsen van een review bij een submission
+    @PostMapping("/{reviewId}/submission")
+    public ResponseEntity<String> addReviewToSubmission(@PathVariable Long reviewId, @RequestBody Long submissionId){
+     reviewService.addReviewToSubmission(reviewId,submissionId);
+       return new ResponseEntity<>("Review toegevoegd aan de Submission", HttpStatus.OK);
+    }
+
+    // het koppelen van een student bij een review
+    @PostMapping("/{id}/student")
+    public ResponseEntity<String> addStudentToReview(@PathVariable Long id, @RequestBody String studentUsername){
+        reviewService.addStudentToReview(id, studentUsername);
+        return new ResponseEntity<>("Student toegevoegd aan de review",HttpStatus.OK);
+    }
+
     // verwijderen van een review door middel van id
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteReview(@PathVariable Long id) {

@@ -55,24 +55,23 @@ public class SpringSecurityConfig {
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
                 .antMatchers(HttpMethod.GET,"/users").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST,"/users/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
+
                 /*voeg de antmatchers toe voor admin(post en delete) en user (overige)*/
 
                 .antMatchers(HttpMethod.POST,"/assignments").hasRole("TEACHER")
                 .antMatchers(HttpMethod.POST,"/class").hasAnyRole("TEACHER","ADMIN")
                 .antMatchers(HttpMethod.POST,"/review").hasRole("TEACHER")
                 .antMatchers(HttpMethod.POST,"/review").hasRole("STUDENT")
-                .antMatchers(HttpMethod.POST,"/submission").hasRole("STUDENT")
-                .antMatchers(HttpMethod.POST,"/submission").hasRole("TEACHER")
+                .antMatchers(HttpMethod.POST,"/submission/**").hasAnyRole("STUDENT","TEACHER")
 
-                .antMatchers(HttpMethod.GET,"/assignments/**").hasAnyRole("ADMIN","TEACHER")
-                .antMatchers(HttpMethod.GET,"/assignments/{id}").hasRole("STUDENT")
+
+                .antMatchers(HttpMethod.GET,"/assignments/**").hasAnyRole("ADMIN","TEACHER","STUDENT")
                 .antMatchers(HttpMethod.GET,"/review/**").hasRole("TEACHER")
                 .antMatchers(HttpMethod.GET,"/review/{id}").hasRole("STUDENT")
                 .antMatchers(HttpMethod.GET,"/class/**").hasAnyRole("TEACHER","ADMIN")
                 .antMatchers(HttpMethod.GET,"/class/{id}").hasRole("STUDENT")
-                .antMatchers(HttpMethod.GET,"/submission/**").hasRole("TEACHER")
-                .antMatchers(HttpMethod.GET,"/submission/{id}").hasRole("STUDENT")
+                .antMatchers(HttpMethod.GET,"/submission/**").hasAnyRole("TEACHER","STUDENT")
+                .antMatchers(HttpMethod.GET,"/submission/random").hasRole("STUDENT")
 
                 .antMatchers(HttpMethod.DELETE,"/assignments/**").hasRole("TEACHER")
                 .antMatchers(HttpMethod.DELETE,"/assignments/**").hasRole("ADMIN")
@@ -82,6 +81,8 @@ public class SpringSecurityConfig {
                 .antMatchers(HttpMethod.DELETE,"/review/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE,"/submission/**").hasRole("TEACHER")
                 .antMatchers(HttpMethod.DELETE,"/submission/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/users").hasRole("ADMIN")
 
                 .antMatchers("/authenticated").authenticated()
                 .antMatchers("/authenticate").permitAll()/*allen dit punt mag toegankelijk zijn voor niet ingelogde gebruikers*/

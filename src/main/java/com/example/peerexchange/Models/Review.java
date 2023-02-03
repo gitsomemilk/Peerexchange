@@ -72,4 +72,6 @@ public class Review {
     public void setStudent(User student) {
         this.student = student;
     }
+
+
 }
