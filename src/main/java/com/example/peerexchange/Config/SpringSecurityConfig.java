@@ -70,7 +70,7 @@ public class SpringSecurityConfig {
                 .antMatchers(HttpMethod.GET,"/review/{id}").hasRole("STUDENT")
                 .antMatchers(HttpMethod.GET,"/class/**").hasAnyRole("TEACHER","ADMIN")
                 .antMatchers(HttpMethod.GET,"/class/{id}").hasRole("STUDENT")
-                .antMatchers(HttpMethod.GET,"/submission/**").hasAnyRole("TEACHER","STUDENT")
+                .antMatchers(HttpMethod.GET,"/submission/**").hasAnyRole("TEACHER","STUDENT","ADMIN")
                 .antMatchers(HttpMethod.GET,"/submission/random").hasRole("STUDENT")
 
                 .antMatchers(HttpMethod.DELETE,"/assignments/**").hasRole("TEACHER")

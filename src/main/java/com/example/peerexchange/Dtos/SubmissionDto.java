@@ -3,6 +3,7 @@ package com.example.peerexchange.Dtos;
 import com.example.peerexchange.Models.Assignment;
 import com.example.peerexchange.Models.Review;
 import com.example.peerexchange.Models.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 public class SubmissionDto {
     private Long id;
     private String file;
+    @JsonFormat(pattern="dd-MM-yyyy")
     private Date timestamp;
     private Assignment assignment;
     private User student;
