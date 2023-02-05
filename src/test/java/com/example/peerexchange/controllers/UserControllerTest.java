@@ -1,14 +1,95 @@
 package com.example.peerexchange.controllers;
 
-public class UserControllerTest {
-    //        user1 = new User("User1","password",false,"apikey1","student1@test.nl","student1","test",null);
-//        user2 = new User("User2","password",false,"apikey2","student2@test.nl","student2","test",null);
-//        user3 = new User("User3","password",true,"apikey3","leraar@test.nl","leraar","test",null);
+import com.example.peerexchange.Controllers.UserController;
+import com.example.peerexchange.Dtos.UserDto;
+import com.example.peerexchange.Filter.JwtRequestFilter;
+import com.example.peerexchange.Models.User;
+import com.example.peerexchange.Services.UserService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
+import static org.mockito.BDDMockito.given;
+import java.util.List;import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
 
-//        userDto1 = new UserDto("User1","password",false,"apikey1","student1@test.nl","student1","test",null);
-//        userDto2 = new UserDto("User2","password",false,"apikey2","student2@test.nl","student2","test",null);
-//        userDto3 = new UserDto("User3","password",true,"apikey3","leraar@test.nl","leraar","test",null);
-//        userDto4 = new UserDto("User4","password",false,"apikey4","student3@test.nl","student3","test",null);
-//        userDto5 = new UserDto("User5","password",false,"apikey5","student4@test.nl","student4","test",null);
+import java.util.List;
+
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+
+
+
+@ExtendWith(SpringExtension.class)
+@WebMvcTest(UserController.class)
+@AutoConfigureMockMvc(addFilters = false)
+public class UserControllerTest {
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
+    JwtRequestFilter jwtRequestFilter;
+
+    @MockBean
+    private UserService userService;
+
+    // dtos
+    UserDto userDto1;
+    UserDto userDto2;
+    UserDto userDto3;
+
+
+    @Test
+    void getAllUsers() throws Exception {
+        given(userService.getUsers()).willReturn(List.of(userDto1, userDto2, userDto3));
+
+        mockMvc.perform(get("/users"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].username").value("User1"))
+                .andExpect(jsonPath("$[0].password").value("password"))
+                .andExpect(jsonPath("$[0].b").value(false))
+                .andExpect(jsonPath("$[0].apikey").value("apikey1"))
+                .andExpect(jsonPath("$[0].s").value("student1@test.nl"))
+                .andExpect(jsonPath("$[0].student").value("student1"))
+                .andExpect(jsonPath("$[0].test").value("test"))
+
+                .andExpect(jsonPath("$[0].username").value("User2"))
+                .andExpect(jsonPath("$[0].password").value("password"))
+                .andExpect(jsonPath("$[0].b").value(false))
+                .andExpect(jsonPath("$[0].apikey").value("apikey2"))
+                .andExpect(jsonPath("$[0].s").value("student2@test.nl"))
+                .andExpect(jsonPath("$[0].student").value("student2"))
+                .andExpect(jsonPath("$[0].test").value("test"))
+
+                .andExpect(jsonPath("$[0].username").value("User3"))
+                .andExpect(jsonPath("$[0].password").value("password"))
+                .andExpect(jsonPath("$[0].b").value(true))
+                .andExpect(jsonPath("$[0].apikey").value("apikey3"))
+                .andExpect(jsonPath("$[0].s").value("student3@test.nl"))
+                .andExpect(jsonPath("$[0].student").value("student3"))
+                .andExpect(jsonPath("$[0].test").value("test"))
+        ;
+    }
+
 }
 

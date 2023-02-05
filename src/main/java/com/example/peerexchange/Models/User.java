@@ -48,7 +48,6 @@ public class User {
     )
     private Set<Submission> submissions = new HashSet<>();
 
-
     public String getUsername() {
         return username;
     }

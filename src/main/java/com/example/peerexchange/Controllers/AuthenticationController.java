@@ -18,20 +18,16 @@ import java.security.Principal;
 @RestController
 public class AuthenticationController {
 
-    /*inject authentionManager, userDetailService en jwtUtil*/
-private AuthenticationManager authenticationManager;
-private UserDetailsService userDetailsService;
+    private AuthenticationManager authenticationManager;
+    private UserDetailsService userDetailsService;
 
-private JwtUtil jwtUtil;
+    private JwtUtil jwtUtil;
 
     public AuthenticationController(AuthenticationManager authenticationManager, UserDetailsService userDetailsService, JwtUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
         this.jwtUtil = jwtUtil;
     }
-
-
-
 
 
     @GetMapping(value = "/authenticated")
@@ -49,8 +45,7 @@ private JwtUtil jwtUtil;
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, password)
             );
-        }
-        catch (BadCredentialsException ex) {
+        } catch (BadCredentialsException ex) {
             throw new Exception("Incorrect username or password", ex);
         }
 

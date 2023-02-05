@@ -16,7 +16,7 @@ import java.util.Map;
 @RequestMapping(value = "/users")
 public class UserController {
 
-    /*inject userService*/
+
     private UserService userService;
 
     public UserController(UserService userService) {
@@ -40,7 +40,12 @@ public class UserController {
         return ResponseEntity.ok().body(optionalUser);
 
     }
-        // het aanmaken van een student
+
+    @GetMapping(value = "/{username}/authorities")
+    public ResponseEntity<Object> getUserAuthorities(@PathVariable("username") String username) {
+        return ResponseEntity.ok().body(userService.getAuthorities(username));
+    }
+
     @PostMapping(value = "")
     public ResponseEntity<UserDto> createStudent(@RequestBody UserDto dto) {
 
@@ -52,28 +57,6 @@ public class UserController {
 
         return ResponseEntity.created(location).build();
 
-
-        }
-
-
-
-    @PutMapping(value = "/{username}")
-    public ResponseEntity<UserDto> updateKlant(@PathVariable("username") String username, @RequestBody UserDto dto) {
-
-        userService.updateUser(username, dto);
-
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping(value = "/{username}")
-    public ResponseEntity<Object> deleteKlant(@PathVariable("username") String username) {
-        userService.deleteUser(username);
-        return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping(value = "/{username}/authorities")
-    public ResponseEntity<Object> getUserAuthorities(@PathVariable("username") String username) {
-        return ResponseEntity.ok().body(userService.getAuthorities(username));
     }
 
     @PostMapping(value = "/{username}/authorities")
@@ -82,10 +65,15 @@ public class UserController {
             String authorityName = (String) fields.get("authority");
             userService.addAuthority(username, authorityName);
             return ResponseEntity.noContent().build();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new BadRequestException();
         }
+    }
+
+    @DeleteMapping(value = "/{username}")
+    public ResponseEntity<Object> deleteUser(@PathVariable("username") String username) {
+        userService.deleteUser(username);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping(value = "/{username}/authorities/{authority}")
