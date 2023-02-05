@@ -54,7 +54,7 @@ public class AssignmentService {
     }
 
     // een opdracht aanmaken met de inputDto assignment
-    public AssignmentDto addAssignment(AssignmentDtoInput dto){
+    public AssignmentDto addAssignment(AssignmentDtoInput dto) {
         Assignment am = transferToAssignment(dto);
         repos.save(am);
 
@@ -63,7 +63,7 @@ public class AssignmentService {
     }
 
     // deleten van een opdracht
-    public void deleteAssignment(@RequestBody Long id){
+    public void deleteAssignment(@RequestBody Long id) {
 
         repos.deleteById(id);
     }
@@ -72,21 +72,20 @@ public class AssignmentService {
     public void addSubmissionToAssignment(Long id, Long submissionId) {
         Optional<Assignment> assignmentOptional = repos.findById(id);
         Optional<Submission> submissionOptional = submissionRepos.findById(submissionId);
-        if (assignmentOptional.isPresent() && submissionOptional.isPresent() ) {
+        if (assignmentOptional.isPresent() && submissionOptional.isPresent()) {
             Assignment assignment = assignmentOptional.get();
-            Submission submission= submissionOptional.get();
+            Submission submission = submissionOptional.get();
             submission.setAssignment(assignment);
             submissionRepos.save(submission);
-        }else {
+        } else {
             throw new RecordNotFoundException();
         }
 
     }
 
 
-
     // vertaal methode van AssignmentDto naar Assignment
-    public Assignment transferToAssignment(AssignmentDtoInput dto){
+    public Assignment transferToAssignment(AssignmentDtoInput dto) {
 
         var assignment = new Assignment();
 
@@ -102,7 +101,7 @@ public class AssignmentService {
 
     }
 
-// de vertaal methode van Assignment naar AssignmentDto
+    // de vertaal methode van Assignment naar AssignmentDto
     public AssignmentDto transferToDto(Assignment am) {
         AssignmentDto dto = new AssignmentDto();
 

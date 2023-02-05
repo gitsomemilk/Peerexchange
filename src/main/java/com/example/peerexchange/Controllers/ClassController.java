@@ -57,22 +57,22 @@ public class ClassController {
     // het plaatsen van een assignment in een klas
     @PostMapping("/{id}/assignment")
     public ResponseEntity<Class> addAssignmentToClass(@PathVariable Long id, @RequestBody Assignment assignmentId) {
-       Class class_ = classService.addAssignmentToClass(id, assignmentId).getClass();
+        Class class_ = classService.addAssignmentToClass(id, assignmentId).getClass();
         return ResponseEntity.ok(class_);
     }
 
     // het plaatsen van een student in een klas
     @PostMapping("/{id}/student")
-    public ResponseEntity<Class> addStudentToClass(@PathVariable Long id, @RequestBody User student ) {
+    public ResponseEntity<Class> addStudentToClass(@PathVariable Long id, @RequestBody User student) {
         Class class_ = classService.addStudentToClass(id, student).getClass();
         return ResponseEntity.ok(class_);
     }
 
     // het plaatsen van een teacher in een klas
     @PostMapping("/{id}/{username}")
-    public  ResponseEntity<String> addTeacherToClass(@PathVariable Long id, @PathVariable String username) {
-      classService.addTeacherToClass(id, username);
-        return new ResponseEntity<>("Leraar is toegevoegd aan een klas",HttpStatus.OK);
+    public ResponseEntity<String> addTeacherToClass(@PathVariable Long id, @PathVariable String username) {
+        classService.addTeacherToClass(id, username);
+        return new ResponseEntity<>("Leraar is toegevoegd aan een klas", HttpStatus.OK);
     }
 
     // het deleten van een klas

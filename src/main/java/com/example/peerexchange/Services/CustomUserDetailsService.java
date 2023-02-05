@@ -17,7 +17,7 @@ import java.util.Set;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    /*inject userservice */
+
  private UserService userService;
 
     public CustomUserDetailsService(UserService userService) {

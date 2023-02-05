@@ -1,11 +1,7 @@
 package com.example.peerexchange.Models;
 
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -68,7 +64,8 @@ public class Class {
         this.assignments = assignments;
     }
 
-    public void addAssignment(Assignment assignment) { this.assignments.add(assignment);
+    public void addAssignment(Assignment assignment) {
+        this.assignments.add(assignment);
     }
 
 

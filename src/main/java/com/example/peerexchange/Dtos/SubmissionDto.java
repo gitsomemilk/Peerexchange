@@ -1,7 +1,6 @@
 package com.example.peerexchange.Dtos;
 
 import com.example.peerexchange.Models.Assignment;
-import com.example.peerexchange.Models.Review;
 import com.example.peerexchange.Models.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -12,11 +11,11 @@ import java.util.List;
 public class SubmissionDto {
     private Long id;
     private String file;
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date timestamp;
     private Assignment assignment;
     private User student;
-    private List<Review> reviews;
+
 
     // getters and setters
 
@@ -61,11 +60,4 @@ public class SubmissionDto {
         this.timestamp = timestamp;
     }
 
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
-    }
 }

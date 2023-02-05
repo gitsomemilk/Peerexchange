@@ -18,8 +18,8 @@ import java.util.Optional;
 @Service
 public class SubmissionService {
     // import van de repository in de service in plaats van in de controller
-private final SubmissionRepository repos;
-private final UserRepository userRepository;
+    private final SubmissionRepository repos;
+    private final UserRepository userRepository;
 
     // constructor injection BEST PRACTICE!!!!!!
     public SubmissionService(SubmissionRepository repos, UserRepository userRepository) {
@@ -28,7 +28,7 @@ private final UserRepository userRepository;
     }
 
     // alle ingeleverde opdrachten ophalen
-    public List<SubmissionDto> getAllSubmissions(){
+    public List<SubmissionDto> getAllSubmissions() {
 
         List<Submission> submissionList = repos.findAll();
         List<SubmissionDto> submissionDtoList = new ArrayList<>();
@@ -42,18 +42,18 @@ private final UserRepository userRepository;
 
     // een specifieke submission ophalen door middel van een id
 
-    public SubmissionDto getSubmissionById(Long id){
+    public SubmissionDto getSubmissionById(Long id) {
         Optional<Submission> submissionOptional = repos.findById(id);
         if (submissionOptional.isPresent()) {
             Submission sm = submissionOptional.get();
             return transferToDto(sm);
-        }else {
+        } else {
             throw new RecordNotFoundException("geen ingeleverde opdracht gevonden met dat ID nummer");
         }
     }
 
     // een submission aanmaken met de inputDto van Submission
-    public SubmissionDto addSubmission(SubmissionDtoInput dto){
+    public SubmissionDto addSubmission(SubmissionDtoInput dto) {
         Submission sm = transferToSubmission(dto);
         repos.save(sm);
 
@@ -62,7 +62,7 @@ private final UserRepository userRepository;
     }
 
     // deleten van een submission
-    public void deleteSubmission(@RequestBody Long id){
+    public void deleteSubmission(@RequestBody Long id) {
 
         repos.deleteById(id);
     }
@@ -70,23 +70,24 @@ private final UserRepository userRepository;
     // toevoegen van een student user aan een submission
 
     public void addStudentToSubmission(Long id, String studentId) {
-        Optional<Submission>submissionOptional= repos.findById(id);
+        Optional<Submission> submissionOptional = repos.findById(id);
         Optional<User> userOptional = userRepository.findById(studentId);
         if (submissionOptional.isPresent() && userOptional.isPresent()) {
             Submission submission = submissionOptional.get();
             User student = userOptional.get();
             submission.setStudent(student);
             repos.save(submission);
-        }else {
+        } else {
             throw new RecordNotFoundException("Geen student of submission gevonden");
         }
     }
-    public Submission getRandomRow(){
+
+    public Submission getRandomRow() {
         return repos.getRandomRow();
     }
 
     // vertaal methode van SubmissionDto naar Submission
-    public Submission transferToSubmission(SubmissionDtoInput dto){
+    public Submission transferToSubmission(SubmissionDtoInput dto) {
 
         var submission = new Submission();
 
@@ -94,7 +95,6 @@ private final UserRepository userRepository;
         submission.setFile(dto.getFile());
         submission.setTimestamp(dto.getTimestamp());
         submission.setAssignment(dto.getAssignment());
-        submission.setReviews(dto.getReviews());
         submission.setStudent(dto.getStudent());
 
 
@@ -102,14 +102,13 @@ private final UserRepository userRepository;
     }
 
     // vertaal methode van Submission naar SubmissionDto
-    public SubmissionDto transferToDto(Submission sm){
+    public SubmissionDto transferToDto(Submission sm) {
         SubmissionDto dto = new SubmissionDto();
 
         dto.setId(sm.getId());
         dto.setFile(sm.getFile());
         dto.setTimestamp(sm.getTimestamp());
         dto.setAssignment(sm.getAssignment());
-        dto.setReviews(sm.getReviews());
         dto.setStudent(sm.getStudent());
 
 

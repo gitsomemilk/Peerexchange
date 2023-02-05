@@ -1,7 +1,6 @@
 package com.example.peerexchange.Dtos.Input;
 
 import com.example.peerexchange.Models.Assignment;
-import com.example.peerexchange.Models.Review;
 import com.example.peerexchange.Models.User;
 
 import java.util.Date;
@@ -14,7 +13,7 @@ public class SubmissionDtoInput {
     private Date timestamp;
     private Assignment assignment;
     private User student;
-    private List<Review> reviews;
+
 
     // getters and setter
 
@@ -59,11 +58,5 @@ public class SubmissionDtoInput {
         this.timestamp = timestamp;
     }
 
-    public List<Review> getReviews() {
-        return reviews;
-    }
 
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
-    }
 }

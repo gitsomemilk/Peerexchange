@@ -1,7 +1,6 @@
 package com.example.peerexchange.Models;
 
 
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -23,9 +22,6 @@ public class Submission {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private User student;
-
-    @OneToMany(mappedBy = "submission", cascade = CascadeType.ALL)
-    private List<Review> reviews;
 
 
     // getters and setters
@@ -71,13 +67,6 @@ public class Submission {
         this.timestamp = timestamp;
     }
 
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
-    }
 
     public void add(Submission submission) {
     }
@@ -85,6 +74,5 @@ public class Submission {
     public void addSubmission() {
     }
 
-    public void setReview(Review review) {
-    }
+
 }

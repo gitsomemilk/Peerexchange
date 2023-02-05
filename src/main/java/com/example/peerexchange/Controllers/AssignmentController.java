@@ -16,14 +16,16 @@ public class AssignmentController {
     private final AssignmentService assignmentService;
 
     // Constructor injection best practice !!
-    public AssignmentController(AssignmentService assignmentService) { this.assignmentService = assignmentService; }
+    public AssignmentController(AssignmentService assignmentService) {
+        this.assignmentService = assignmentService;
+    }
 
 
     ///---------------Mapping Blok--------------------\\\\\\\
 
     // ophalen van alle Assignments
     @GetMapping("/all")
-    public ResponseEntity<List<AssignmentDto>> getAllAssignments(){
+    public ResponseEntity<List<AssignmentDto>> getAllAssignments() {
         List<AssignmentDto> dtos;
         dtos = assignmentService.getAllAssignments();
 
@@ -32,7 +34,7 @@ public class AssignmentController {
 
     // ophalen van een Assignment op basis van id
     @GetMapping("/{id}")
-    public ResponseEntity<AssignmentDto> getAssignmentById(@PathVariable ("id") Long id) {
+    public ResponseEntity<AssignmentDto> getAssignmentById(@PathVariable("id") Long id) {
 
         AssignmentDto assignment = assignmentService.getAssignmentById(id);
 
@@ -48,9 +50,10 @@ public class AssignmentController {
         return ResponseEntity.created(null).body(dto);
 
     }
+
     // het toevoegen van een Submission aan een Assignment
     @PostMapping("/{id}/submission")
-    public ResponseEntity<String> addSubmissionToAssignment(@PathVariable Long id,@RequestBody Long submissionId){
+    public ResponseEntity<String> addSubmissionToAssignment(@PathVariable Long id, @RequestBody Long submissionId) {
         assignmentService.addSubmissionToAssignment(id, submissionId);
         return new ResponseEntity<>("Submission toegevoegd aan de Assignment", HttpStatus.OK);
     }

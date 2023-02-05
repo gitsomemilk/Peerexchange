@@ -26,12 +26,13 @@ public class SubmissionController {
 
     // ophalen van alle submissions
     @GetMapping("/all")
-    public ResponseEntity<List<SubmissionDto>> getAllSubmissions(){
+    public ResponseEntity<List<SubmissionDto>> getAllSubmissions() {
         List<SubmissionDto> dtos;
         dtos = submissionService.getAllSubmissions();
 
         return ResponseEntity.ok().body(dtos);
     }
+
     // ophalen van een submission op basis van id
     @GetMapping("/{id}")
     public ResponseEntity<SubmissionDto> getSubmissionById(@PathVariable("id") Long id) {
@@ -40,15 +41,16 @@ public class SubmissionController {
 
         return ResponseEntity.ok().body(submission);
     }
+
     // ophalen van een random opdracht uit de data base
     @GetMapping("/random")
-    public Submission getRandomRow(){
+    public Submission getRandomRow() {
         return submissionService.getRandomRow();
     }
 
     // het plaatsen van een submission door middel van de inputDto submission
     @PostMapping("")
-    public ResponseEntity<SubmissionDto> addSubmission(@RequestBody SubmissionDtoInput submissionDtoInput ){
+    public ResponseEntity<SubmissionDto> addSubmission(@RequestBody SubmissionDtoInput submissionDtoInput) {
 
         SubmissionDto dto = submissionService.addSubmission(submissionDtoInput);
 
@@ -57,11 +59,10 @@ public class SubmissionController {
 
     // het toevoegen van eens student user aan een submission
     @PostMapping("/{id}/{username}")
-    public ResponseEntity<String> addStudentToSubmission(@PathVariable Long id, @PathVariable String username){
+    public ResponseEntity<String> addStudentToSubmission(@PathVariable Long id, @PathVariable String username) {
         submissionService.addStudentToSubmission(id, username);
         return new ResponseEntity<>("Student toegevoegd aan een submission", HttpStatus.OK);
     }
-
 
 
     // verwijderen van een submission door middel van id

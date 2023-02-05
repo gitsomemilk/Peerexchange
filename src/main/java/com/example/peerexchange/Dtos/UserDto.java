@@ -22,8 +22,6 @@ public class UserDto {
     public Set<Authority> authorities;
 
 
-
-
     public String getUsername() {
         return username;
     }

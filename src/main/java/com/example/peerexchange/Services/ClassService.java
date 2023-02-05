@@ -57,8 +57,9 @@ public class ClassService {
         }
 
     }
+
     // een class aanmaken met de inputDTO van class
-    public ClassDto addClass(ClassDtoInput dto){
+    public ClassDto addClass(ClassDtoInput dto) {
 
         Class cl = transferToClass(dto);
         repos.save(cl);
@@ -68,33 +69,33 @@ public class ClassService {
     }
 
     // een class verwijderen
-    public void deleteClass(@RequestBody Long id){
+    public void deleteClass(@RequestBody Long id) {
 
         repos.deleteById(id);
     }
 
     // een Assignment toevoegen aan een Class class
-    public Class addAssignmentToClass(Long id, Assignment assignmentId){
-       Optional<Class> optionalClass = repos.findById(id);
-       if (optionalClass.isPresent()) {
-           Class class_ = optionalClass.get();
-           List<Assignment> assignments = class_.getAssignments();
-           assignments.add(assignmentId);
-           class_.setAssignments(assignments);
-           assignmentId.setClass(class_);
-           assignmentRepository.save(assignmentId);
-           repos.save(class_);
+    public Class addAssignmentToClass(Long id, Assignment assignmentId) {
+        Optional<Class> optionalClass = repos.findById(id);
+        if (optionalClass.isPresent()) {
+            Class class_ = optionalClass.get();
+            List<Assignment> assignments = class_.getAssignments();
+            assignments.add(assignmentId);
+            class_.setAssignments(assignments);
+            assignmentId.setClass(class_);
+            assignmentRepository.save(assignmentId);
+            repos.save(class_);
 
-           return repos.save(class_);
-       } else {
-           throw new RecordNotFoundException();
-       }
+            return repos.save(class_);
+        } else {
+            throw new RecordNotFoundException();
+        }
     }
 
     // een Student User toevoegen aan een Class
-    public Class addStudentToClass(Long id, User student){
+    public Class addStudentToClass(Long id, User student) {
         Optional<Class> optionalClass = repos.findById(id);
-        if (optionalClass.isPresent()){
+        if (optionalClass.isPresent()) {
             Class class_ = optionalClass.get();
             student.setClass(class_);
             userRepository.save(student);
@@ -111,7 +112,7 @@ public class ClassService {
         Optional<Class> classOptional = repos.findById(classId);
         Optional<User> userOptional = userRepository.findById(teacherId);
 
-        if (classOptional.isPresent() && userOptional.isPresent()){
+        if (classOptional.isPresent() && userOptional.isPresent()) {
             Class class_ = classOptional.get();
             User teacher = userOptional.get();
 
@@ -129,7 +130,6 @@ public class ClassService {
         class_.setTeacher(dto.getTeacher());
         class_.setStudents(dto.getStudents());
         class_.setAssignments(dto.getAssignments());
-
 
 
         return class_;

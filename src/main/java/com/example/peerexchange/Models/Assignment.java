@@ -22,8 +22,8 @@ public class Assignment {
     // connections tussen verschillende entiteiten
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "class_assignment",
-            joinColumns = @JoinColumn(name = "assignment_id",referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "class_id" , referencedColumnName = "id"))
+            joinColumns = @JoinColumn(name = "assignment_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "class_id", referencedColumnName = "id"))
     private List<Class> classes;
 
     @OneToMany(mappedBy = "assignment", cascade = CascadeType.ALL)
@@ -89,7 +89,9 @@ public class Assignment {
         this.submissions = submissions;
     }
 
-    public void addSubmissions(Submission submission) { this.submissions.add(submission);}
+    public void addSubmissions(Submission submission) {
+        this.submissions.add(submission);
+    }
 
     public void addAssignment(Assignment assignment) {
     }
