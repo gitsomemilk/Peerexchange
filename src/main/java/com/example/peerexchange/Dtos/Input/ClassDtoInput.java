@@ -1,28 +1,27 @@
-package com.example.peerexchange.Models;
+package com.example.peerexchange.Dtos.Input;
 
+import com.example.peerexchange.Models.Assignment;
+import com.example.peerexchange.Models.User;
+import com.sun.istack.NotNull;
 
-import javax.persistence.*;
 import java.util.List;
 
-@Entity
-public class Class {
-    @Id
-    @GeneratedValue
-    private Long id;
+// deze klasse wordt gebruikt voor de Post en Put methodes.
+public class ClassDtoInput {
 
+    private Long id;
+    @NotNull
     private String name;
-    @ManyToOne
-    @JoinColumn(name = "teacher")
+
     private User teacher;
 
-    @OneToMany
     private List<User> students;
 
-    @ManyToMany
     private List<Assignment> assignments;
 
 
     // getters and setters
+
 
     public Long getId() {
         return id;
@@ -63,10 +62,6 @@ public class Class {
     public void setAssignments(List<Assignment> assignments) {
         this.assignments = assignments;
     }
-
-    public void addAssignment(Assignment assignment) {
-        this.assignments.add(assignment);
-    }
-
-
 }
+
+

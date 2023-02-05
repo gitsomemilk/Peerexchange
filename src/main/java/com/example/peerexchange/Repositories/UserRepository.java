@@ -1,8 +1,12 @@
 package com.example.peerexchange.Repositories;
 
 
+import com.example.peerexchange.Models.Submission;
 import com.example.peerexchange.Models.User;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends CrudRepository<User, String> {
+import java.util.Optional;
+
+public interface UserRepository extends JpaRepository<User,String> {
+
 }

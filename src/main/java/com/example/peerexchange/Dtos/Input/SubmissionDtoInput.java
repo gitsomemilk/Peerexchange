@@ -1,30 +1,21 @@
-package com.example.peerexchange.Models;
+package com.example.peerexchange.Dtos.Input;
 
+import com.example.peerexchange.Models.Assignment;
+import com.example.peerexchange.Models.User;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-public class Submission {
-    // Harde Waardes
-    @Id
-    @GeneratedValue
+// deze klasse wordt gebruikt voor de Post en Put methodes.
+public class SubmissionDtoInput {
     private Long id;
-    private String file; // pull request van de student
+    private String file;
     private Date timestamp;
-
-
-    // connecties tussen de entiteiten
-    @ManyToOne
-    @JoinColumn(name = "assignment_id")
     private Assignment assignment;
-
-    @ManyToOne(cascade = CascadeType.ALL)
     private User student;
 
 
-    // getters and setters
+    // getters and setter
 
 
     public Long getId() {
@@ -65,13 +56,6 @@ public class Submission {
 
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
-    }
-
-
-    public void add(Submission submission) {
-    }
-
-    public void addSubmission() {
     }
 
 
